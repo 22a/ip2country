@@ -13,15 +13,16 @@ defmodule IP2Country do
   @external_resource @db
 
   import IP2Country.Converters
-  
-  IO.puts "Compiling DBIP database, please be patient"
-  dbip_list = File.stream!(Path.join([__DIR__, @db]), [], :line) 
+
+  IO.puts "Compiling IP database ..."
+  dbip_list = File.stream!(Path.join([__DIR__, @db]), [], :line)
       |> Stream.filter(&String.contains?(&1, ".")) # check if it is a line with IPv4
       |> Stream.map(&decode_line/1)
       |> Stream.map(fn [ip1, ip2, country] -> {ip2integer(ip1), ip2integer(ip2), String.to_atom(country)} end)
       |> Enum.sort()
       |> List.to_tuple
   @dbip_list dbip_list
+  IO.puts "Finshed compiling IP database"
 
   @doc """
   Retrieves country code based on the IP address.
@@ -35,7 +36,7 @@ defmodule IP2Country do
       iex> IP2Country.whereis("51.254.116.38")
       :FR
 
-      iex> IP2Country.whereis("176.9.20.99")  
+      iex> IP2Country.whereis("176.9.20.99")
       :DE
 
       iex> IP2Country.whereis("83.144.118.166")
@@ -47,13 +48,13 @@ defmodule IP2Country do
       iex> IP2Country.whereis("255.255.255.255")
       :ZZ
 
-      iex> IP2Country.whereis("2.17.212.254")   
+      iex> IP2Country.whereis("2.17.212.254")
       :PL
 
       iex> IP2Country.whereis("2.17.212.255")
       :PL
 
-      iex> IP2Country.whereis("2.17.213.0")  
+      iex> IP2Country.whereis("2.17.213.0")
       :SE
 
       iex> IP2Country.whereis("2.17.213.1")
@@ -83,5 +84,4 @@ defmodule IP2Country do
       {false, true} -> bsearch(ip, ranges, low, mid - 1)
     end
   end
-
 end

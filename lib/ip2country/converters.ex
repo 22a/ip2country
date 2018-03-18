@@ -1,4 +1,3 @@
-
 defmodule IP2Country.Converters do
   @moduledoc false
 
@@ -11,9 +10,9 @@ defmodule IP2Country.Converters do
 
   @doc false
   def decode_line(line) do
-    line 
-      |> String.trim() 
-      |> String.split(",") 
+    line
+      |> String.trim()
+      |> String.split(",")
       |> Enum.map(&String.trim(&1, "\""))
   end
 

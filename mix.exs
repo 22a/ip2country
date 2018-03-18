@@ -37,7 +37,7 @@ defmodule IP2Country.Mixfile do
       maintainers: ["Tomek Gryszkiewicz"],
       licenses: ["MIT"],
       links: %{
-        "GitHub" => "https://github.com/grych/ip2country", 
+        "GitHub" => "https://github.com/grych/ip2country",
         "Home" => "https://github.com/grych/ip2country"
       }
     ]
